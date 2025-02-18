@@ -2,4 +2,5 @@
     background-color: gray;
     height: 88%;
     display: flex;
+    flex-wrap:wrap;
 }
