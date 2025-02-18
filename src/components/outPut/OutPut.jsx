@@ -1,20 +1,31 @@
-import './OutPut.css'
+import "./OutPut.css";
 
 export const OutPut = ({ output }) => {
-  const outputLines = output.split("\n"); // Convertir output en array de líneas
-  const lineNumbers = outputLines.map((_, index) => index + 1); // Crear números de línea
+  // Convertir output en array de líneas y filtrar líneas vacías
+  const outputLines = output.split("\n").filter((line) => line.trim() !== "");
+
+  // Crear números de línea solo para las líneas no vacías
+  const lineNumbers = outputLines.map((_, index) => index + 1);
 
   return (
-    <div className='OutPut'>
-      <div className="output-container">
-        {/* Columna de números de línea */}
-        <pre className="line-numbers">
-          {lineNumbers.join("\n")}
-        </pre>
+    <div className="OutPut">
+      {output && output.trim() !== "" && ( // Verificar si output no está vacío
+        <div className="output-container">
+          {/* Columna de números de línea */}
+          <div className="line-numbers-column">
+            {lineNumbers.map((lineNumber, index) => (
+              <div key={index} className="line-number">
+                {lineNumber}
+              </div>
+            ))}
+          </div>
 
-        {/* Contenido del output */}
-        <pre className="output-content">{output}</pre>
-      </div>
+          {/* Contenido del output */}
+          <pre className="output-content">
+            {outputLines.join("\n")} {/* Unir las líneas no vacías */}
+          </pre>
+        </div>
+      )}
     </div>
   );
 };
